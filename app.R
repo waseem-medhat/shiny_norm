@@ -1,5 +1,8 @@
 library(shiny)
 
+source('prep.R')
+source('histogram.R')
+
 ui <- fluidPage(
   
   titlePanel('Test distributions for normality'),
@@ -29,9 +32,17 @@ ui <- fluidPage(
   
   h3('Tests'),
   fluidRow(
-    column(4, h4('Histogram'), plotOutput('hist')),
-    column(4, h4('Q-Q plot'), plotOutput('qq')),
-    column(4, h4('Goodness-of-fit tests'), fluidRow(br()), tableOutput('gof'))
+    column(4, h4('Histogram'), fluidRow(br()), plotOutput('hist')),
+    column(4, h4('Q-Q plot'), fluidRow(br()), plotOutput('qq')),
+    column(
+      4,
+      h4('Goodness-of-fit tests'),
+      fluidRow(br()),
+      tableOutput('gof'),
+      fluidRow(br()),
+      h4('Sample size'),
+      textOutput('n')
+    )
   )
   
 )
@@ -41,12 +52,9 @@ server <- function(input, output) {
   
   output$var_names <- renderText('hello')
   
-  output$hist <- renderPlot({ hist(rnorm(10), main = "") })
+  output$hist <- renderPlot({ histogram(rnorm(10)) })
   
-  output$qq <- renderPlot({
-    qqnorm(rnorm(10), main = "")
-    qqline(rnorm(10))
-  })
+  output$qq <- renderPlot({ normal_qq(rnorm(10))  })
   
   output$gof <- renderTable({
     data.frame(

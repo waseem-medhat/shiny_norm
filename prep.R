@@ -18,3 +18,5 @@ set_choices <- c(
   "pressure", "quakes", "randu", "rock", "sleep", "stackloss", 
   "swiss", "trees", "warpbreaks", "women"
 )
+
+par(bty = "n")
