@@ -14,7 +14,7 @@ ui <- fluidPage(
     column(
       5,
       selectInput(
-        'builtin_datasets',
+        'builtin_dataset',
         'Choose a built-in dataset:',
         choices = set_choices,
         selected = 'iris'
@@ -26,7 +26,7 @@ ui <- fluidPage(
   
   h3('Step 2: choose a variable'),
   fluidRow(
-    column(5, textInput('vars', 'Enter variable name:')),
+    column(5, textInput('var', 'Enter variable name:')),
     column(7, strong('Available variables:'), textOutput('var_names'))
   ),
   
@@ -50,12 +50,14 @@ ui <- fluidPage(
 
 server <- function(input, output) {
   
-  output$var_names <- renderText('hello')
+  df <- reactive({ get(input$builtin_dataset) })
+  df_names <- reactive({ paste(names(df()), collapse = ' / ') })
+  df_var <- reactive({ df()[, input$var] })
   
-  output$hist <- renderPlot({ histogram(rnorm(10)) })
   
-  output$qq <- renderPlot({ normal_qq(rnorm(10))  })
-  
+  output$var_names <- renderText( df_names() )
+  output$hist <- renderPlot( histogram(df_var()) )
+  output$qq <- renderPlot( normal_qq(df_var()) )
   output$gof <- renderTable({
     data.frame(
       x = c('Kolmogorov-Smirnov', 'Shapiro-Wilk', 'Anderson-Darling'),
