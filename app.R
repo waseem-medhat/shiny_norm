@@ -13,7 +13,8 @@ ui <- fluidPage(
       selectInput(
         'builtin_datasets',
         'Choose a built-in dataset:',
-        choices = 1:3
+        choices = set_choices,
+        selected = 'iris'
       )
     ),
     column(2, strong('or...')),
@@ -30,7 +31,7 @@ ui <- fluidPage(
   fluidRow(
     column(4, h4('Histogram'), plotOutput('hist')),
     column(4, h4('Q-Q plot'), plotOutput('qq')),
-    column(4, h4('Goodness-of-fit tests'), tableOutput('gof'))
+    column(4, h4('Goodness-of-fit tests'), fluidRow(br()), tableOutput('gof'))
   )
   
 )
