@@ -27,7 +27,11 @@ ui <- fluidPage(
   h3('Step 2: choose a variable'),
   fluidRow(
     column(5, textInput('var', 'Enter variable name:')),
-    column(7, strong('Available variables:'), textOutput('var_names'))
+    column(
+      7,
+      strong('Available (numeric) variables:'),
+      em(textOutput('var_names'))
+    )
   ),
   
   h3('Tests'),
@@ -51,13 +55,20 @@ ui <- fluidPage(
 server <- function(input, output) {
   
   df <- reactive({ get(input$builtin_dataset) })
-  df_names <- reactive({ paste(names(df()), collapse = ' / ') })
+  df_names <- reactive({ get_numeric_names(df()) })
   df_var <- reactive({ df()[, input$var] })
   
   
   output$var_names <- renderText( df_names() )
-  output$hist <- renderPlot( histogram(df_var()) )
-  output$qq <- renderPlot( normal_qq(df_var()) )
+  
+  output$hist <- renderPlot({
+    if (input$var %in% names(df())) histogram(df_var())
+  })
+  
+  output$qq <- renderPlot({
+    if (input$var %in% names(df())) normal_qq(df_var())
+  })
+  
   output$gof <- renderTable({
     data.frame(
       x = c('Kolmogorov-Smirnov', 'Shapiro-Wilk', 'Anderson-Darling'),
@@ -66,6 +77,8 @@ server <- function(input, output) {
   },
   colnames = FALSE
   )
+  
+  output$n <- renderText( if (input$var %in% names(df())) length(df_var()) )
   
 }
 

@@ -19,4 +19,9 @@ set_choices <- c(
   "swiss", "trees", "warpbreaks", "women"
 )
 
-par(bty = "n")
+get_numeric_names <- function(df) {
+  paste0(
+    ifelse(sapply(df, is.numeric), names(df), ''),
+    collapse = '; '
+  )
+}
