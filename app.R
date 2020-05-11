@@ -1,4 +1,5 @@
 library(shiny)
+library(nortest)
 
 source('prep.R')
 source('histogram.R')
@@ -17,7 +18,7 @@ ui <- fluidPage(
         'builtin_dataset',
         'Choose a built-in dataset:',
         choices = set_choices,
-        selected = 'iris'
+        selected = 'mtcars'
       )
     ),
     column(2, strong('or...')),
@@ -56,7 +57,14 @@ server <- function(input, output) {
   
   df <- reactive({ get(input$builtin_dataset) })
   df_names <- reactive({ get_numeric_names(df()) })
-  df_var <- reactive({ df()[, input$var] })
+  df_var <- reactive({ na.omit(df()[, input$var]) })
+  gof_p <- reactive({
+    c(
+      lillie.test(df_var())$p.value,
+      shapiro.test(df_var())$p.value,
+      ad.test(df_var())$p.value
+    )
+  })
   
   
   output$var_names <- renderText( df_names() )
@@ -72,7 +80,7 @@ server <- function(input, output) {
   output$gof <- renderTable({
     data.frame(
       x = c('Kolmogorov-Smirnov', 'Shapiro-Wilk', 'Anderson-Darling'),
-      y = 1:3
+      y = if (input$var %in% names(df())) format(gof_p(), digits = 3) else " "
     )
   },
   colnames = FALSE
