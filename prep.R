@@ -20,8 +20,10 @@ set_choices <- c(
 )
 
 get_numeric_names <- function(df) {
-  paste0(
-    ifelse(sapply(df, is.numeric), names(df), ''),
-    collapse = '; '
+  trimws(
+    paste(
+      ifelse(sapply(df, is.numeric), names(df), ''),
+      collapse = ' '
+    )
   )
 }
