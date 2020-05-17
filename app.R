@@ -17,8 +17,6 @@ ui <- fluidPage(
       width = 6,
       
       wellPanel(
-        style = 'height:20vw;',
-        
         h3('Step 1: load the data'),
         selectInput(
           'builtin_dataset',
@@ -26,20 +24,16 @@ ui <- fluidPage(
           choices = set_choices,
           selected = 'mtcars'
         )
-        
       )
       
     ),
     
     column(
-      6,
+      width = 6,
       
       wellPanel(
-        style = 'height:20vw;',
-        
         h3('Step 2: choose a variable'),
         uiOutput('var_ui')
-        
       )
       
     )
