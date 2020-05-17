@@ -9,4 +9,3 @@ normal_qq <- function(x) {
   par(opar)
   
 }
-normal_qq(iris$Sepal.Length)

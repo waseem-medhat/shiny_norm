@@ -7,6 +7,8 @@ source('normal_qq.R')
 
 ui <- fluidPage(
   
+  # tags$style('body{margin:100px;}'),
+  
   titlePanel('Test distributions for normality'),
   actionLink('main_help', 'What is this about?', icon('question-circle')),
   fluidRow(br()),
@@ -14,7 +16,7 @@ ui <- fluidPage(
   fluidRow(
     
     column(
-      width = 6,
+      width = 5,
       
       wellPanel(
         h3('Step 1: load the data'),
@@ -29,12 +31,19 @@ ui <- fluidPage(
     ),
     
     column(
-      width = 6,
+      width = 5,
       
       wellPanel(
         h3('Step 2: choose a variable'),
         uiOutput('var_ui')
       )
+      
+    ),
+    
+    column(
+      width = 2,
+      
+      actionButton('execute', 'Execute')
       
     )
     
@@ -85,21 +94,29 @@ server <- function(input, output) {
   })
   
   
+  r_hist <- eventReactive(input$execute, {
+    histogram(df_var())
+  })
   
-  output$hist <- renderPlot({ histogram(df_var()) })
+  r_qq   <- eventReactive(input$execute, {
+    normal_qq(df_var())
+  })
   
-  output$qq <- renderPlot({ normal_qq(df_var()) })
-  
-  output$gof <- renderTable({
+  r_gof    <- eventReactive(input$execute, {
     data.frame(
       x = c('Kolmogorov-Smirnov', 'Shapiro-Wilk', 'Anderson-Darling'),
       y = format(gof_p(), digits = 3)
     )
-  },
-  colnames = FALSE
-  )
+  })
   
-  output$n <- renderText( length(df_var()) )
+  r_n      <- eventReactive(input$execute, {
+    length(df_var()) 
+  })
+  
+  output$hist <- renderPlot({ r_hist() })
+  output$qq   <- renderPlot({ r_qq()  })
+  output$gof  <- renderTable({ r_gof() }, colnames = FALSE)
+  output$n <- renderText({ r_n() })
   
 }
 
