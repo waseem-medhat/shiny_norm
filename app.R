@@ -14,8 +14,11 @@ ui <- fluidPage(
   fluidRow(
     
     column(
-      6,
+      width = 6,
+      
       wellPanel(
+        style = 'height:20vw;',
+        
         h3('Step 1: load the data'),
         selectInput(
           'builtin_dataset',
@@ -23,12 +26,17 @@ ui <- fluidPage(
           choices = set_choices,
           selected = 'mtcars'
         )
+        
       )
+      
     ),
     
     column(
       6,
+      
       wellPanel(
+        style = 'height:20vw;',
+        
         h3('Step 2: choose a variable'),
         fluidRow(
           column(5, textInput('var', 'Enter variable name:')),
@@ -38,7 +46,9 @@ ui <- fluidPage(
             em(textOutput('var_names'))
           )
         )
+        
       )
+      
     )
     
   ),
