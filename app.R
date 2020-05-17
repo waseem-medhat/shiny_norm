@@ -38,14 +38,7 @@ ui <- fluidPage(
         style = 'height:20vw;',
         
         h3('Step 2: choose a variable'),
-        fluidRow(
-          column(5, textInput('var', 'Enter variable name:')),
-          column(
-            7,
-            strong('Available (numeric) variables:'),
-            em(textOutput('var_names'))
-          )
-        )
+        uiOutput('var_ui')
         
       )
       
@@ -78,7 +71,17 @@ server <- function(input, output) {
   
   df <- reactive({ get(input$builtin_dataset) })
   df_names <- reactive({ get_numeric_names(df()) })
+  
+  output$var_ui <- renderUI({
+    selectInput(
+      'var',
+      'Available (numeric) variables',
+      choices = names(df())
+    )
+  })
+  
   df_var <- reactive({ na.omit(df()[, input$var]) })
+  
   gof_p <- reactive({
     c(
       lillie.test(df_var())$p.value,
@@ -88,26 +91,21 @@ server <- function(input, output) {
   })
   
   
-  output$var_names <- renderText( df_names() )
   
-  output$hist <- renderPlot({
-    if (input$var %in% names(df())) histogram(df_var())
-  })
+  output$hist <- renderPlot({ histogram(df_var()) })
   
-  output$qq <- renderPlot({
-    if (input$var %in% names(df())) normal_qq(df_var())
-  })
+  output$qq <- renderPlot({ normal_qq(df_var()) })
   
   output$gof <- renderTable({
     data.frame(
       x = c('Kolmogorov-Smirnov', 'Shapiro-Wilk', 'Anderson-Darling'),
-      y = if (input$var %in% names(df())) format(gof_p(), digits = 3) else " "
+      y = format(gof_p(), digits = 3)
     )
   },
   colnames = FALSE
   )
   
-  output$n <- renderText( if (input$var %in% names(df())) length(df_var()) )
+  output$n <- renderText( length(df_var()) )
   
 }
 
