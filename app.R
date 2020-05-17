@@ -11,34 +11,38 @@ ui <- fluidPage(
   actionLink('main_help', 'What is this about?', icon('question-circle')),
   fluidRow(br()),
   
-  wellPanel(
-    h3('Step 1: load the data'),
-    fluidRow(
-      column(
-        5,
+  fluidRow(
+    
+    column(
+      6,
+      wellPanel(
+        h3('Step 1: load the data'),
         selectInput(
           'builtin_dataset',
           'Choose a built-in dataset:',
           choices = set_choices,
           selected = 'mtcars'
         )
-      ),
-      column(2, strong('or...')),
-      column(5, fileInput('upload_dataset', 'Upload your own dataset:'))
-    )
-  ),
-  
-  wellPanel(
-    h3('Step 2: choose a variable'),
-    fluidRow(
-      column(5, textInput('var', 'Enter variable name:')),
-      column(
-        7,
-        strong('Available (numeric) variables:'),
-        em(textOutput('var_names'))
+      )
+    ),
+    
+    column(
+      6,
+      wellPanel(
+        h3('Step 2: choose a variable'),
+        fluidRow(
+          column(5, textInput('var', 'Enter variable name:')),
+          column(
+            7,
+            strong('Available (numeric) variables:'),
+            em(textOutput('var_names'))
+          )
+        )
       )
     )
+    
   ),
+  
   
   wellPanel(
     h3('Tests'),
