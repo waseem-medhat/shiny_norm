@@ -98,7 +98,7 @@ server <- function(input, output) {
     c(
       lillie.test(df_var())$p.value,
       shapiro.test(df_var())$p.value,
-      ad.test(df_var())$p.value
+      ifelse(length(df_var()) <= 7, NA, ad.test(df_var())$p.value)
     )
   })
   
