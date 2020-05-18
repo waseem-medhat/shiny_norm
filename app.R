@@ -16,36 +16,42 @@ ui <- fluidPage(
   fluidRow(
     
     column(
-      width = 5,
+      width = 4,
       
       wellPanel(
-        h3('Step 1: load the data'),
+        
+        h3('1: load the data'),
         selectInput(
           'builtin_dataset',
           'Choose a built-in dataset:',
           choices = set_choices,
           selected = 'mtcars'
         )
+        
       )
       
     ),
     
     column(
-      width = 5,
+      width = 4,
       
       wellPanel(
-        h3('Step 2: choose a variable'),
+        
+        h3('2: choose a variable'),
         uiOutput('var_ui')
+        
       )
       
     ),
     
     column(
-      width = 2,
+      width = 4,
       
       wellPanel(
-        fluidRow(actionButton('execute', 'Execute')),
-        fluidRow(actionButton('reset', 'Reset'))
+        
+        h3('3: analyze'),
+        actionButton('execute', 'Execute', style = 'margin:20px 10px;'),
+        
       )
       
     )
@@ -76,7 +82,7 @@ ui <- fluidPage(
 server <- function(input, output) {
   
   df <- reactive({ get(input$builtin_dataset) })
-  df_names <- reactive({ get_numeric_names(df()) })
+  df_names <- reactive({ get_numeric_names(df()) }) # TODO: adapt to selectInput
   
   output$var_ui <- renderUI({
     selectInput(
