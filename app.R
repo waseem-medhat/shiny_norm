@@ -7,7 +7,11 @@ source('normal_qq.R')
 
 ui <- fluidPage(
   
-  # tags$style('body{margin:100px;}'),
+  tags$style(
+    'body {
+      margin:30px;
+    }'
+    ),
   
   titlePanel('Test distributions for normality'),
   actionLink('main_help', 'What is this about?', icon('question-circle')),
@@ -88,7 +92,7 @@ server <- function(input, output) {
     selectInput(
       'var',
       'Available (numeric) variables',
-      choices = names(df())
+      choices = names(df()[sapply(df(), is.numeric)])
     )
   })
   
