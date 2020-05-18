@@ -55,6 +55,7 @@ ui <- fluidPage(
         
         h3('3: analyze'),
         actionButton('execute', 'Execute', style = 'margin:20px 10px;'),
+        actionButton('clear', 'Clear', style = 'margin:20px 10px;')
         
       )
       
@@ -126,10 +127,19 @@ server <- function(input, output) {
     length(df_var()) 
   })
   
-  output$hist <- renderPlot({ r_hist() })
-  output$qq   <- renderPlot({ r_qq()  })
-  output$gof  <- renderTable({ r_gof() }, colnames = FALSE)
-  output$n <- renderText({ r_n() })
+  observeEvent(input$execute, {
+    output$hist <- renderPlot({ r_hist() })
+    output$qq   <- renderPlot({ r_qq()  })
+    output$gof  <- renderTable({ r_gof() }, colnames = FALSE)
+    output$n <- renderText({ r_n() })
+  })
+  
+  observeEvent(input$clear, {
+    output$hist <- NULL
+    output$qq   <- NULL
+    output$gof  <- NULL
+    output$n <- NULL
+  })
   
 }
 
