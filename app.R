@@ -8,10 +8,18 @@ source('normal_qq.R')
 ui <- fluidPage(
   
   tags$style(
+    
     'body {
-      margin:30px;
+      margin: 30px;
+    }
+    
+    .btn {
+      margin: 10px auto 5px;
+      display: block;
+      width: 150px
     }'
-    ),
+    
+  ),
   
   titlePanel('Test distributions for normality'),
   actionLink('main_help', 'What is this about?', icon('question-circle')),
@@ -53,9 +61,9 @@ ui <- fluidPage(
       
       wellPanel(
         
-        h3('3: analyze'),
-        actionButton('execute', 'Execute', style = 'margin:20px 10px;'),
-        actionButton('clear', 'Clear', style = 'margin:20px 10px;')
+        h3('3: execute'),
+        actionButton('execute', 'Analyze variable'),
+        actionButton('clear', 'Clear all output')
         
       )
       
