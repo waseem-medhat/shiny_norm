@@ -43,7 +43,10 @@ ui <- fluidPage(
     column(
       width = 2,
       
-      actionButton('execute', 'Execute')
+      wellPanel(
+        fluidRow(actionButton('execute', 'Execute')),
+        fluidRow(actionButton('reset', 'Reset'))
+      )
       
     )
     
