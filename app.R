@@ -87,7 +87,6 @@ ui <- fluidPage(
 server <- function(input, output) {
   
   df <- reactive({ get(input$builtin_dataset) })
-  df_names <- reactive({ get_numeric_names(df()) }) # TODO: adapt to selectInput
   
   output$var_ui <- renderUI({
     selectInput(

@@ -18,12 +18,3 @@ set_choices <- c(
   "pressure", "quakes", "randu", "rock", "sleep", "stackloss", 
   "swiss", "trees", "warpbreaks", "women"
 )
-
-get_numeric_names <- function(df) {
-  trimws(
-    paste(
-      ifelse(sapply(df, is.numeric), names(df), ''),
-      collapse = ' '
-    )
-  )
-}
