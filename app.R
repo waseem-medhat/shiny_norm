@@ -32,7 +32,7 @@ ui <- fluidPage(
       
       wellPanel(
         
-        h3('1: load the data'),
+        h3('Load the data'),
         selectInput(
           'builtin_dataset',
           'Choose a built-in dataset:',
@@ -49,7 +49,7 @@ ui <- fluidPage(
       
       wellPanel(
         
-        h3('2: choose a variable'),
+        h3('Choose a variable'),
         uiOutput('var_ui')
         
       )
@@ -61,7 +61,7 @@ ui <- fluidPage(
       
       wellPanel(
         
-        h3('3: execute'),
+        h3('Execute'),
         actionButton('execute', 'Analyze variable'),
         actionButton('clear', 'Clear all output')
         
@@ -73,7 +73,7 @@ ui <- fluidPage(
   
   
   wellPanel(
-    h3('Tests'),
+    h3('Analyze'),
     fluidRow(
       column(4, h4('Histogram'), fluidRow(br()), plotOutput('hist')),
       column(4, h4('Q-Q plot'), fluidRow(br()), plotOutput('qq')),
