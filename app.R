@@ -22,7 +22,7 @@ ui <- fluidPage(
   ),
   
   titlePanel('Test distributions for normality'),
-  actionLink('main_help', 'What is this about?', icon('question-circle')),
+  actionLink('help_main', 'Why test normality?', icon('question-circle')),
   fluidRow(br()),
   
   fluidRow(
@@ -93,6 +93,10 @@ ui <- fluidPage(
 
 
 server <- function(input, output) {
+  
+  observeEvent(input$help_main, {
+    showModal(modalDialog(help_main_text, title = 'Why test normality?'))
+  })
   
   df <- reactive({ get(input$builtin_dataset) })
   
