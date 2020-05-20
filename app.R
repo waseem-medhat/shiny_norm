@@ -1,5 +1,7 @@
 library(shiny)
 library(nortest)
+library(shinyhelper)
+library(magrittr)
 
 source('prep.R')
 source('histogram.R')
@@ -38,7 +40,7 @@ ui <- fluidPage(
           'Choose a built-in dataset:',
           choices = set_choices,
           selected = 'mtcars'
-        )
+        ) %>% helper_def('load')
         
       )
       
@@ -94,6 +96,7 @@ ui <- fluidPage(
 
 server <- function(input, output) {
   
+  observe_helpers()
   observeEvent(input$help_main, {
     showModal(modalDialog(help_main_text, title = 'Why test normality?'))
   })

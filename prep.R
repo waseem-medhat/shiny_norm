@@ -26,3 +26,8 @@ similar or (dissimilar) your sample is to the a normal distribution, and this is
 exactly the purpose of this app: to provide some tools, graphical and
 statistical, to test a variable\'s distribution against the normal.'
 )
+
+
+helper_def <- function(tag, helpfile) {
+  helper(shiny_tag = tag, type = 'markdown', content = helpfile, fade = TRUE)
+}
