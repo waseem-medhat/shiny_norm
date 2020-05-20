@@ -20,8 +20,12 @@ ui <- fluidPage(
     .action-button {
       margin: 15px auto 5px;
       display: block;
-      width: max;
-      color: darkcyan;
+      width: 80%;
+      color: white;
+      font-size: 1.1em;
+      background-color: darkcyan;
+      padding: 5px 10px;
+      border-radius: 5px;
     }
     
     #main_div .fa {
