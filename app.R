@@ -1,6 +1,7 @@
 library(shiny)
 library(nortest)
 library(shinyhelper)
+library(shinythemes)
 library(magrittr)
 
 source('prep.R')
@@ -8,6 +9,7 @@ source('histogram.R')
 source('normal_qq.R')
 
 ui <- fluidPage(
+  theme = shinytheme('flatly'),
   
   tags$style(
     
@@ -15,10 +17,10 @@ ui <- fluidPage(
       margin: 30px;
     }
     
-    .btn {
-      margin: 10px auto 5px;
+    .action-button {
+      margin: 15px auto 5px;
       display: block;
-      width: 150px
+      width: max;
     }
     
     #main_div .fa {
@@ -69,8 +71,8 @@ ui <- fluidPage(
       wellPanel(
         
         h3('Execute'),
-        actionButton('execute', 'Analyze variable'),
-        actionButton('clear', 'Clear all output')
+        actionLink('execute', 'Analyze variable', icon = icon('angle-right')),
+        actionLink('clear', 'Clear all output', icon = icon('angle-right'))
         
       )
       
