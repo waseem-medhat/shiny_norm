@@ -19,12 +19,16 @@ ui <- fluidPage(
       margin: 10px auto 5px;
       display: block;
       width: 150px
+    }
+    
+    #main_div .fa {
+      font-size: 1.7em;
     }'
     
   ),
   
-  titlePanel('Test distributions for normality'),
-  actionLink('help_main', 'Why test normality?', icon('question-circle')),
+  titlePanel('Test distributions for normality') %>%
+    helper(content = 'main', fade = TRUE, id = 'main_div'),
   fluidRow(br()),
   
   fluidRow(
@@ -34,13 +38,14 @@ ui <- fluidPage(
       
       wellPanel(
         
-        h3('Load the data'),
+        h3('Load the data') %>%
+          helper(content = 'load', fade = TRUE),
         selectInput(
           'builtin_dataset',
           'Choose a built-in dataset:',
           choices = set_choices,
           selected = 'mtcars'
-        ) %>% helper_def('load')
+        )
         
       )
       
@@ -75,7 +80,8 @@ ui <- fluidPage(
   
   
   wellPanel(
-    h3('Analyze'),
+    h3('Analyze') %>%
+      helper(content = 'analyze', fade = TRUE),
     fluidRow(
       column(4, h4('Histogram'), fluidRow(br()), plotOutput('hist')),
       column(4, h4('Q-Q plot'), fluidRow(br()), plotOutput('qq')),
