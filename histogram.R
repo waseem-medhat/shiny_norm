@@ -1,7 +1,7 @@
 histogram <- function(x) {
   
   opar <- par(no.readonly = TRUE)
-  par(cex = 1.2, lwd = 2, mar = c(5, 4, 1, 2))
+  par(cex = 1.2, lwd = 2, mar = c(3, 3, 1, 2), bg = NA)
   
   hist(
     x,
@@ -19,7 +19,6 @@ histogram <- function(x) {
     lty = 2,
     col = "gray10"
   )
-  legend("topright", lty = c(1,2), legend = c("Data", "Normal"), bg = NULL)
   
   par(opar)
   
