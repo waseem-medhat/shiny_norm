@@ -30,6 +30,14 @@ ui <- fluidPage(
     
     #main_div .fa {
       font-size: 1.7em;
+    }
+    
+    td {
+      font-size: 1.2em
+    }
+    
+    #n {
+      font-size: 1.8em
     }'
     
   ),
