@@ -9,7 +9,7 @@ source('histogram.R')
 source('normal_qq.R')
 
 ui <- fluidPage(
-  theme = shinytheme('flatly'),
+  theme = shinytheme('yeti'),
   
   tags$style(
     
@@ -21,6 +21,7 @@ ui <- fluidPage(
       margin: 15px auto 5px;
       display: block;
       width: max;
+      color: darkcyan;
     }
     
     #main_div .fa {
@@ -30,7 +31,7 @@ ui <- fluidPage(
   ),
   
   titlePanel('Test distributions for normality') %>%
-    helper(content = 'main', fade = TRUE, id = 'main_div'),
+    helper(content = 'main', fade = TRUE, id = 'main_div', colour = 'darkcyan'),
   fluidRow(br()),
   
   fluidRow(
@@ -41,7 +42,7 @@ ui <- fluidPage(
       wellPanel(
         
         h3('Load the data') %>%
-          helper(content = 'load', fade = TRUE),
+          helper(content = 'load', fade = TRUE, colour = 'darkcyan'),
         selectInput(
           'builtin_dataset',
           'Choose a built-in dataset:',
@@ -83,7 +84,7 @@ ui <- fluidPage(
   
   wellPanel(
     h3('Analyze') %>%
-      helper(content = 'analyze', fade = TRUE),
+      helper(content = 'analyze', fade = TRUE, colour = 'darkcyan'),
     fluidRow(
       column(4, h4('Histogram'), fluidRow(br()), plotOutput('hist')),
       column(4, h4('Q-Q plot'), fluidRow(br()), plotOutput('qq')),
