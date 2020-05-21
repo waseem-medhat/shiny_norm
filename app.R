@@ -98,14 +98,12 @@ ui <- fluidPage(
   
   
   wellPanel(
+    
     h3('Analyze') %>%
       helper(content = 'analyze', fade = TRUE, colour = 'darkcyan'),
+    
     fluidRow(
-      column(
-        4,
-        h4('Histogram'),
-        plotOutput('hist')
-      ),
+      column(4, h4('Histogram'), plotOutput('hist')),
       column(4, h4('Q-Q plot'), plotOutput('qq')),
       column(
         4,
@@ -117,6 +115,7 @@ ui <- fluidPage(
         textOutput('n')
       )
     )
+    
   )
   
 )
