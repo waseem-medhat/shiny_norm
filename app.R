@@ -26,6 +26,7 @@ ui <- fluidPage(
       background-color: darkcyan;
       padding: 5px 10px;
       border-radius: 5px;
+      max-width: 160px
     }
     
     #main_div .fa {
