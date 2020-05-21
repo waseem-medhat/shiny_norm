@@ -33,6 +33,10 @@ ui <- fluidPage(
       border-radius: 5px;
     }
     
+    .col-sm-5 {
+      padding: 0px 25px;
+    }
+    
     #main_div .fa {
       font-size: 1.7em;
     }
