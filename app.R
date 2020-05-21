@@ -15,6 +15,7 @@ ui <- fluidPage(
     
     'body {
       margin: 30px;
+      background: #fafafa;
     }
     
     #btn-container {
@@ -28,7 +29,7 @@ ui <- fluidPage(
       margin: 100px 10px 10px;
       color: white;
       font-size: 1.1em;
-      background-color: darkcyan;
+      background-color: darkslateblue;
       padding: 5px 10px;
       border-radius: 5px;
     }
@@ -52,7 +53,7 @@ ui <- fluidPage(
   ),
   
   titlePanel('Test distributions for normality') %>%
-    helper(content = 'main', fade = TRUE, id = 'main_div', colour = 'darkcyan'),
+    helper(content = 'main', fade = TRUE, id = 'main_div', colour = accent),
   fluidRow(br()),
   
   wellPanel(
@@ -62,7 +63,7 @@ ui <- fluidPage(
         width = 4,
         
         h3('Load the data') %>%
-          helper(content = 'load', fade = TRUE, colour = 'darkcyan'),
+          helper(content = 'load', fade = TRUE, colour = accent),
         selectInput(
           'builtin_dataset',
           'Choose a built-in dataset:',
@@ -76,7 +77,7 @@ ui <- fluidPage(
         width = 4,
         
         h3('Choose a variable') %>% 
-          helper(content = 'variables', fade = TRUE, colour = 'darkcyan'),
+          helper(content = 'variables', fade = TRUE, colour = accent),
         uiOutput('var_ui')
         
       ),
@@ -100,7 +101,7 @@ ui <- fluidPage(
   wellPanel(
     
     h3('Analyze') %>%
-      helper(content = 'analyze', fade = TRUE, colour = 'darkcyan'),
+      helper(content = 'analyze', fade = TRUE, colour = accent),
     
     fluidRow(
       column(4, h4('Histogram'), plotOutput('hist')),
