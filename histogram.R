@@ -5,9 +5,10 @@ histogram <- function(x) {
   
   hist(
     x,
-    col = "gray60",
-    border = "white",
+    col = "gray70",
+    border = NA,
     freq = FALSE,
+    breaks = 15,
     main = "",
     xlab = "",
     ylab = ""

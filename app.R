@@ -9,7 +9,7 @@ source('histogram.R')
 source('normal_qq.R')
 
 ui <- fluidPage(
-  theme = shinytheme('yeti'),
+  theme = shinytheme('spacelab'),
   
   tags$style(
     
