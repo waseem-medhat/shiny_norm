@@ -47,12 +47,11 @@ ui <- fluidPage(
     helper(content = 'main', fade = TRUE, id = 'main_div', colour = 'darkcyan'),
   fluidRow(br()),
   
-  fluidRow(
-    
-    column(
-      width = 4,
+  wellPanel(
+    fluidRow(
       
-      wellPanel(
+      column(
+        width = 4,
         
         h3('Load the data') %>%
           helper(content = 'load', fade = TRUE, colour = 'darkcyan'),
@@ -63,26 +62,18 @@ ui <- fluidPage(
           selected = 'mtcars'
         )
         
-      )
+      ),
       
-    ),
-    
-    column(
-      width = 4,
-      
-      wellPanel(
+      column(
+        width = 4,
         
         h3('Choose a variable'),
         uiOutput('var_ui')
         
-      )
+      ),
       
-    ),
-    
-    column(
-      width = 4,
-      
-      wellPanel(
+      column(
+        width = 4,
         
         h3('Execute'),
         actionLink('execute', 'Analyze variable', icon = icon('angle-right')),
@@ -91,7 +82,6 @@ ui <- fluidPage(
       )
       
     )
-    
   ),
   
   
@@ -99,7 +89,12 @@ ui <- fluidPage(
     h3('Analyze') %>%
       helper(content = 'analyze', fade = TRUE, colour = 'darkcyan'),
     fluidRow(
-      column(4, h4('Histogram'), fluidRow(br()), plotOutput('hist')),
+      column(
+        4,
+        h4('Histogram'),
+        fluidRow(br()),
+        plotOutput('hist')
+      ),
       column(4, h4('Q-Q plot'), fluidRow(br()), plotOutput('qq')),
       column(
         4,
