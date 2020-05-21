@@ -135,7 +135,7 @@ server <- function(input, output) {
     selectInput(
       'var',
       'Available (numeric) variables',
-      choices = names(df()[sapply(df(), is.numeric)])
+      choices = sort( names(df()[sapply(df(), is.numeric)]) )
     )
   })
   
@@ -161,7 +161,7 @@ server <- function(input, output) {
   r_gof    <- eventReactive(input$execute, {
     data.frame(
       x = c('Kolmogorov-Smirnov', 'Shapiro-Wilk', 'Anderson-Darling'),
-      y = format(gof_p(), digits = 3)
+      y = format(gof_p(), digits = 2)
     )
   })
   
