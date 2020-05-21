@@ -104,10 +104,9 @@ ui <- fluidPage(
       column(
         4,
         h4('Histogram'),
-        fluidRow(br()),
         plotOutput('hist')
       ),
-      column(4, h4('Q-Q plot'), fluidRow(br()), plotOutput('qq')),
+      column(4, h4('Q-Q plot'), plotOutput('qq')),
       column(
         4,
         h4('Goodness-of-fit tests'),
