@@ -75,7 +75,8 @@ ui <- fluidPage(
       column(
         width = 4,
         
-        h3('Choose a variable'),
+        h3('Choose a variable') %>% 
+          helper(content = 'variables', fade = TRUE, colour = 'darkcyan'),
         uiOutput('var_ui')
         
       ),
