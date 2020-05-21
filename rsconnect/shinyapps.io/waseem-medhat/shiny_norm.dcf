@@ -1,0 +1,12 @@
+name: shiny_norm
+title: shiny_norm
+username:
+account: waseem-medhat
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 2337649
+bundleId: 3175865
+url: https://waseem-medhat.shinyapps.io/shiny_norm/
+when: 1590085258.59391
+asMultiple: FALSE
+asStatic: FALSE
