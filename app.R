@@ -53,6 +53,18 @@ ui <- fluidPage(
     fluidRow(
       
       column(
+        width = 2,
+        radioButtons(
+          'source',
+          'Select data source',
+          choices = c(
+            'Sample datasets' = 'builtin',
+            'Upload' = 'upload'
+          )
+        )
+      ),
+      
+      column(
         width = 4,
         
         h3('Load the data') %>%
@@ -76,7 +88,7 @@ ui <- fluidPage(
       ),
       
       column(
-        width = 4,
+        width = 2,
         
         h3('Execute'),
           actionButton('execute', 'Analyze', icon = icon('angle-right')),
