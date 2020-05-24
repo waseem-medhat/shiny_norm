@@ -9,7 +9,6 @@ source('histogram.R')
 source('normal_qq.R')
 
 ui <- fluidPage(
-  theme = shinytheme('spacelab'),
   
   tags$style(
     
@@ -18,24 +17,24 @@ ui <- fluidPage(
     }
     
     .action-button {
-      width: 100px;
+      width: 90px;
       margin: 10px auto;
       display: block;
       font-size: 1.1em;
-      background-color: darkslateblue;
       padding: 5px 10px;
       border-radius: 5px;
+      text-align: left;
     }
     
     .col-sm-5 {
       padding: 0px 25px;
     }
     
-    #main_div .fa {
+    #main_div .fa {     /* main helper */
       font-size: 1.7em;
     }
     
-    td {
+    td {               /* gof table */
       font-size: 1.2em
     }
     
@@ -58,7 +57,7 @@ ui <- fluidPage(
           'source',
           'Select data source',
           choices = c(
-            'Sample datasets' = 'builtin',
+            'Built-in' = 'builtin',
             'Upload' = 'upload'
           )
         )
