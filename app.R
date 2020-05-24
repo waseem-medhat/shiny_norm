@@ -64,19 +64,7 @@ ui <- fluidPage(
         )
       ),
       
-      column(
-        width = 4,
-        
-        h3('Load the data') %>%
-          helper(content = 'load', fade = TRUE, colour = accent),
-        selectInput(
-          'builtin_dataset',
-          'Choose a built-in dataset:',
-          choices = set_choices,
-          selected = 'mtcars'
-        )
-        
-      ),
+      column(width = 4,  uiOutput('import_ui')),
       
       column(
         width = 4,
@@ -131,15 +119,31 @@ server <- function(input, output) {
     showModal(modalDialog(help_main_text, title = 'Why test normality?'))
   })
   
+  output$import_ui <- renderUI({
+    
+    if (input$source == 'builtin') {
+      
+      selectInput(
+        'builtin_dataset',
+        'Choose a built-in dataset:',
+        choices = set_choices,
+        selected = 'mtcars'
+      ) %>%
+        helper(content = 'load', fade = TRUE, colour = accent)
+      
+    } else fileInput('upload', 'Upload file')
+    
+  })
+  
   df <- reactive({ get(input$builtin_dataset) })
   
-  output$var_ui <- renderUI({
-    selectInput(
-      'var',
-      'Available (numeric) variables',
-      choices = sort( names(df()[sapply(df(), is.numeric)]) )
-    )
-  })
+  # output$var_ui <- renderUI({
+  #   selectInput(
+  #     'var',
+  #     'Available (numeric) variables',
+  #     choices = sort( names(df()[sapply(df(), is.numeric)]) )
+  #   )
+  # })
   
   df_var <- reactive({ na.omit(df()[, input$var]) })
   
