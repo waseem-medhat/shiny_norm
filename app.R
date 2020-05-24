@@ -131,19 +131,29 @@ server <- function(input, output) {
       ) %>%
         helper(content = 'load', fade = TRUE, colour = accent)
       
-    } else fileInput('upload', 'Upload file')
+    } else fileInput('uploaded_dataset', 'Upload file')
     
   })
   
-  df <- reactive({ get(input$builtin_dataset) })
+  df <- reactive({
+    
+    if (input$source == 'builtin' & !is.null(input$builtin_dataset))  {
+      get(input$builtin_dataset)
+    } else if (input$source == 'upload' & !is.null(input$uploaded_dataset)) {
+      read.spss(input$uploaded_dataset$datapath, to.data.frame = TRUE)
+    }
+    
+  })
   
-  # output$var_ui <- renderUI({
-  #   selectInput(
-  #     'var',
-  #     'Available (numeric) variables',
-  #     choices = sort( names(df()[sapply(df(), is.numeric)]) )
-  #   )
-  # })
+  output$var_ui <- renderUI({
+   
+    selectInput(
+      'var',
+      'Available (numeric) variables',
+      choices = sort( names(df()[sapply(df(), is.numeric)]) )
+    )
+    
+  })
   
   df_var <- reactive({ na.omit(df()[, input$var]) })
   
