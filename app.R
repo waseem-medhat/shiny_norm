@@ -15,19 +15,12 @@ ui <- fluidPage(
     
     'body {
       margin: 30px;
-      background: #fafafa;
-    }
-    
-    #btn-container {
-      padding: 5% 0%;
-      margin: auto;
-      display: block;
     }
     
     .action-button {
-      width: 160px;
-      margin: 100px 10px 10px;
-      color: white;
+      width: 100px;
+      margin: 10px auto;
+      display: block;
       font-size: 1.1em;
       background-color: darkslateblue;
       padding: 5px 10px;
@@ -86,11 +79,8 @@ ui <- fluidPage(
         width = 4,
         
         h3('Execute'),
-        div(
-          id = 'btn-container',
-          actionLink('execute', 'Analyze', icon = icon('angle-right')),
-          actionLink('clear', 'Clear', icon = icon('angle-right'))
-        ) 
+          actionButton('execute', 'Analyze', icon = icon('angle-right')),
+          actionButton('clear', 'Clear', icon = icon('angle-right'))
         
       )
       
