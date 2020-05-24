@@ -69,16 +69,14 @@ ui <- fluidPage(
       column(
         width = 4,
         
-        h3('Choose a variable') %>% 
-          helper(content = 'variables', fade = TRUE, colour = accent),
-        uiOutput('var_ui')
+        uiOutput('var_ui') %>% 
+          helper(content = 'variables', fade = TRUE, colour = accent)
         
       ),
       
       column(
         width = 2,
         
-        h3('Execute'),
           actionButton('execute', 'Analyze', icon = icon('angle-right')),
           actionButton('clear', 'Clear', icon = icon('angle-right'))
         
@@ -186,10 +184,12 @@ server <- function(input, output) {
   })
   
   observeEvent(input$execute, {
-    output$hist <- renderPlot({ r_hist() })
-    output$qq   <- renderPlot({ r_qq()  })
-    output$gof  <- renderTable({ r_gof() }, colnames = FALSE)
-    output$n <- renderText({ r_n() })
+    if (!is.null(df_var())) {
+      output$hist <- renderPlot({ r_hist() })
+      output$qq   <- renderPlot({ r_qq()  })
+      output$gof  <- renderTable({ r_gof() }, colnames = FALSE)
+      output$n <- renderText({ r_n() })
+    }
   })
   
   observeEvent(input$clear, {
