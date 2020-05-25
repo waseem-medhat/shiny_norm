@@ -3,6 +3,7 @@ library(nortest)
 library(shinyhelper)
 library(shinythemes)
 library(magrittr)
+library(foreign)
 
 source('prep.R')
 source('histogram.R')
@@ -116,6 +117,14 @@ server <- function(input, output) {
     showModal(modalDialog(help_main_text, title = 'Why test normality?'))
   })
   
+  observeEvent(input$source, {
+    df <- NULL
+    output$hist <- NULL
+    output$qq   <- NULL
+    output$gof  <- NULL
+    output$n <- NULL
+  })
+  
   output$import_ui <- renderUI({
     
     if (input$source == 'builtin') {
@@ -138,6 +147,7 @@ server <- function(input, output) {
       get(input$builtin_dataset)
     } else if (input$source == 'upload' & !is.null(input$uploaded_dataset)) {
       read.spss(input$uploaded_dataset$datapath, to.data.frame = TRUE)
+      # TODO: support more data formats
     }
     
   })
