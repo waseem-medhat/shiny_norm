@@ -25,6 +25,9 @@ ui <- fluidPage(
       padding: 5px 10px;
       border-radius: 5px;
       text-align: left;
+      background-color: darkslateblue;
+      color: white;
+      /* TODO: style on hover */
     }
     
     .col-sm-5 {
