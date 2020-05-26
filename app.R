@@ -30,6 +30,10 @@ ui <- fluidPage(
       /* TODO: style on hover */
     }
     
+    .progress {
+      margin: 0;
+    }
+    
     .col-sm-5 {
       padding: 0px 25px;
     }
@@ -143,7 +147,14 @@ server <- function(input, output) {
       ) %>%
         helper(content = 'load', fade = TRUE, colour = accent)
       
-    } else fileInput('uploaded_dataset', 'Upload file')
+    } else {
+      
+      div(
+        fileInput('uploaded_dataset', 'Upload file'),
+        textOutput('uploaded_text')
+      )
+      
+    }
     
   })
   
@@ -156,6 +167,11 @@ server <- function(input, output) {
       # TODO: support more data formats
     }
     
+  })
+  
+  output$uploaded_text <- renderText({
+    if (!is.null(input$uploaded_dataset))
+      paste('Loaded:', input$uploaded_dataset$name)
   })
   
   output$var_ui <- renderUI({
