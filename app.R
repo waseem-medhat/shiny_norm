@@ -91,8 +91,10 @@ ui <- fluidPage(
   
   wellPanel(
     
-    h3('Analyze') %>%
+    h3('Analysis') %>%
       helper(content = 'analyze', fade = TRUE, colour = accent),
+    
+    em(textOutput('loaded'), br()),
     
     fluidRow(
       column(4, h4('Histogram'), plotOutput('hist')),
@@ -126,6 +128,7 @@ server <- function(input, output) {
     output$qq   <- NULL
     output$gof  <- NULL
     output$n <- NULL
+    output$loaded <- NULL
   })
   
   output$import_ui <- renderUI({
@@ -176,6 +179,18 @@ server <- function(input, output) {
   })
   
   
+  r_loaded <- eventReactive(input$execute, {
+    sprintf(
+      'Variable: %s (%s)',
+      input$var,
+      ifelse(
+        input$source == 'builtin',
+        input$builtin_dataset,
+        input$uploaded_dataset$name # TODO: remove file extension
+      )
+    )
+  })
+  
   r_hist <- eventReactive(input$execute, {
     histogram(df_var())
   })
@@ -201,6 +216,7 @@ server <- function(input, output) {
       output$qq   <- renderPlot({ r_qq()  })
       output$gof  <- renderTable({ r_gof() }, colnames = FALSE)
       output$n <- renderText({ r_n() })
+      output$loaded <- renderText({ r_loaded() })
     }
   })
   
@@ -209,6 +225,7 @@ server <- function(input, output) {
     output$qq   <- NULL
     output$gof  <- NULL
     output$n <- NULL
+    output$loaded <- NULL
   })
   
 }
