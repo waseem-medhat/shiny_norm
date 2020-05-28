@@ -27,7 +27,6 @@ ui <- fluidPage(
       text-align: left;
       background-color: darkslateblue;
       color: white;
-      /* TODO: style on hover */
     }
     
     .progress {
@@ -169,9 +168,17 @@ server <- function(input, output) {
     
   })
   
+  uploaded_df_name <- reactive({
+    sub(
+      '\\....$',
+      '',
+      input$uploaded_dataset$name
+    )
+  })
+  
   output$uploaded_text <- renderText({
     if (!is.null(input$uploaded_dataset))
-      paste('Loaded:', input$uploaded_dataset$name)
+      paste('Loaded:', uploaded_df_name())
   })
   
   output$var_ui <- renderUI({
@@ -202,7 +209,7 @@ server <- function(input, output) {
       ifelse(
         input$source == 'builtin',
         input$builtin_dataset,
-        input$uploaded_dataset$name # TODO: remove file extension
+        uploaded_df_name()
       )
     )
   })
