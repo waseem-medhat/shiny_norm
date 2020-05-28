@@ -158,14 +158,6 @@ server <- function(input, output) {
     
   })
   
-  uploaded_df_name <- reactive({
-    sub(
-      '\\....$',
-      '',
-      input$uploaded_dataset$name
-    )
-  })
-  
   df <- reactive({
     
     if (input$source == 'builtin' & !is.null(input$builtin_dataset))  {
@@ -184,9 +176,22 @@ server <- function(input, output) {
     
   })
   
+  uploaded_file_name <- reactive({
+    sub(
+      '\\....$',
+      '',
+      input$uploaded_dataset$name
+    )
+  })
+  
   output$uploaded_text <- renderText({
-    if (!is.null(input$uploaded_dataset))
-      paste('Loaded:', uploaded_df_name())
+    if (!is.null(input$uploaded_dataset)) {
+      ifelse(
+        is.null(df()),
+        paste('Error: file invalid or not supported'),
+        paste('Loaded:', uploaded_file_name())
+      )
+    }
   })
   
   output$var_ui <- renderUI({
@@ -217,7 +222,7 @@ server <- function(input, output) {
       ifelse(
         input$source == 'builtin',
         input$builtin_dataset,
-        uploaded_df_name()
+        uploaded_file_name()
       )
     )
   })
