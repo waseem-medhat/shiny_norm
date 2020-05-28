@@ -64,8 +64,8 @@ ui <- fluidPage(
           'source',
           'Select data source',
           choices = c(
-            'Built-in' = 'builtin',
-            'Upload' = 'upload'
+            'Upload' = 'upload',
+            'Built-in' = 'builtin'
           )
         )
       ),
