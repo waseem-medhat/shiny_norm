@@ -157,23 +157,30 @@ server <- function(input, output) {
     
   })
   
-  df <- reactive({
-    
-    if (input$source == 'builtin' & !is.null(input$builtin_dataset))  {
-      get(input$builtin_dataset)
-    } else if (input$source == 'upload' & !is.null(input$uploaded_dataset)) {
-      read.spss(input$uploaded_dataset$datapath, to.data.frame = TRUE)
-      # TODO: support more data formats
-    }
-    
-  })
-  
   uploaded_df_name <- reactive({
     sub(
       '\\....$',
       '',
       input$uploaded_dataset$name
     )
+  })
+  
+  df <- reactive({
+    
+    if (input$source == 'builtin' & !is.null(input$builtin_dataset))  {
+      
+      get(input$builtin_dataset)
+      
+    } else if (input$source == 'upload' & !is.null(input$uploaded_dataset)) {
+      
+      if (grepl('\\.csv$', input$uploaded_dataset$datapath)) {
+        read.csv(input$uploaded_dataset$datapath)
+      } else if (grepl('\\.sav$', input$uploaded_dataset$datapath)) {
+        read.spss(input$uploaded_dataset$datapath, to.data.frame = TRUE)
+      }
+      
+    }
+    
   })
   
   output$uploaded_text <- renderText({
