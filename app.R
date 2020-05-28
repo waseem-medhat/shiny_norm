@@ -149,7 +149,8 @@ server <- function(input, output) {
     } else {
       
       div(
-        fileInput('uploaded_dataset', 'Upload file'),
+        fileInput('uploaded_dataset', 'Upload file') %>% 
+          helper(content = 'upload', fade = TRUE, colour = accent),
         textOutput('uploaded_text')
       )
       
